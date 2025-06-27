@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Welcome to My Blog",
+    "date": "2024-10-22",
+    "tags": ["intro", "personal"],
+    "author": "Arpit",
+    "image": "profile.jpeg",
+    "file": "post1.html",
+    "preview": "This is the first post on my new blog! Here's what you can expect..."
+  },
+  {
+    "title": "Learning JavaScript",
+    "date": "2024-10-25",
+    "tags": ["javascript", "coding"],
+    "author": "Arpit",
+    "image": "profile.jpeg",
+    "file": "post2.html",
+    "preview": "JavaScript is a versatile language. In this post, I'll share some tips for beginners."
+  },
+  {
+    "title": "Travel Diaries: Japan",
+    "date": "2024-11-01",
+    "tags": ["travel", "japan"],
+    "author": "Arpit",
+    "image": "profile.jpeg",
+    "file": "post3.html",
+    "preview": "My experiences exploring the beautiful country of Japan, from Tokyo to Kyoto."
+  }
+] 
