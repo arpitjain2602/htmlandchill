@@ -107,7 +107,7 @@
         <div class="avatar">
             <img src="profile.jpeg" alt="Profile Picture">
         </div>
-        <h1>Arpit Jain</h1>
+        <h1 id="typing-title"></h1>
         <div class="links">
             <a href="story.html" class="link">See my story</a>
             <a href="posts.html" class="link">Read my posts</a>
@@ -116,4 +116,18 @@
         </div>
     </div>
 </body>
+<script>
+  // Typing effect for the h1 title
+  const text = "Arpit Jain";
+  const el = document.getElementById("typing-title");
+  let idx = 0;
+  function type() {
+    if (idx <= text.length) {
+      el.textContent = text.slice(0, idx);
+      idx++;
+      setTimeout(type, 120);
+    }
+  }
+  type();
+</script>
 </html>
