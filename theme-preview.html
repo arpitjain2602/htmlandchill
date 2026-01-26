@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theme Preview - Choose Your Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #64ffda 0%, #00d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            color: #8892b0;
+            font-size: 1.1rem;
+        }
+        
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .theme-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .theme-preview {
+            padding: 3rem 2rem;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .theme-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        .theme-elements {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .sample-heading {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .sample-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .sample-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sample-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .sample-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        /* Theme 1: Midnight Blue & Cyan (Current) */
+        .theme-1 {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: #e6f1ff;
+        }
+        
+        .theme-1 .sample-heading {
+            background: linear-gradient(135deg, #64ffda 0%, #00d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-1 .sample-text {
+            color: #8892b0;
+        }
+        
+        .theme-1 .sample-button {
+            color: #64ffda;
+            border-color: #64ffda;
+            background: transparent;
+        }
+        
+        .theme-1 .sample-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+        
+        .theme-1 .sample-tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+        }
+        
+        /* Theme 2: Dark Slate & Emerald */
+        .theme-2 {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+        }
+        
+        .theme-2 .sample-heading {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-2 .sample-text {
+            color: #a0aec0;
+        }
+        
+        .theme-2 .sample-button {
+            color: #10b981;
+            border-color: #10b981;
+            background: transparent;
+        }
+        
+        .theme-2 .sample-button:hover {
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .theme-2 .sample-tag {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+        
+        /* Theme 3: Charcoal & Coral */
+        .theme-3 {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            color: #ffffff;
+        }
+        
+        .theme-3 .sample-heading {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-3 .sample-text {
+            color: #b8b8b8;
+        }
+        
+        .theme-3 .sample-button {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            background: transparent;
+        }
+        
+        .theme-3 .sample-button:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .theme-3 .sample-tag {
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff6b6b;
+        }
+        
+        /* Theme 4: Pure Dark & Purple */
+        .theme-4 {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+        }
+        
+        .theme-4 .sample-heading {
+            background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-4 .sample-text {
+            color: #9ca3af;
+        }
+        
+        .theme-4 .sample-button {
+            color: #a855f7;
+            border-color: #a855f7;
+            background: transparent;
+        }
+        
+        .theme-4 .sample-button:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+        
+        .theme-4 .sample-tag {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+        }
+        
+        /* Theme 5: Navy & Gold */
+        .theme-5 {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2540 100%);
+            color: #f5f5f5;
+        }
+        
+        .theme-5 .sample-heading {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-5 .sample-text {
+            color: #cbd5e1;
+        }
+        
+        .theme-5 .sample-button {
+            color: #fbbf24;
+            border-color: #fbbf24;
+            background: transparent;
+        }
+        
+        .theme-5 .sample-button:hover {
+            background: rgba(251, 191, 36, 0.1);
+        }
+        
+        .theme-5 .sample-tag {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+        }
+        
+        /* Theme 6: Dark Teal & Amber */
+        .theme-6 {
+            background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+            color: #f0fdfa;
+        }
+        
+        .theme-6 .sample-heading {
+            background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-6 .sample-text {
+            color: #ccfbf1;
+        }
+        
+        .theme-6 .sample-button {
+            color: #fbbf24;
+            border-color: #fbbf24;
+            background: transparent;
+        }
+        
+        .theme-6 .sample-button:hover {
+            background: rgba(251, 191, 36, 0.1);
+        }
+        
+        .theme-6 .sample-tag {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        /* Theme 7: Indigo & Pink */
+        .theme-7 {
+            background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+            color: #e0e7ff;
+        }
+        
+        .theme-7 .sample-heading {
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-7 .sample-text {
+            color: #c7d2fe;
+        }
+        
+        .theme-7 .sample-button {
+            color: #ec4899;
+            border-color: #ec4899;
+            background: transparent;
+        }
+        
+        .theme-7 .sample-button:hover {
+            background: rgba(236, 72, 153, 0.1);
+        }
+        
+        .theme-7 .sample-tag {
+            background: rgba(236, 72, 153, 0.15);
+            color: #ec4899;
+        }
+        
+        /* Theme 8: Forest Green & Lime */
+        .theme-8 {
+            background: linear-gradient(135deg, #14532d 0%, #052e16 100%);
+            color: #f0fdf4;
+        }
+        
+        .theme-8 .sample-heading {
+            background: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .theme-8 .sample-text {
+            color: #d1fae5;
+        }
+        
+        .theme-8 .sample-button {
+            color: #84cc16;
+            border-color: #84cc16;
+            background: transparent;
+        }
+        
+        .theme-8 .sample-button:hover {
+            background: rgba(132, 204, 22, 0.1);
+        }
+        
+        .theme-8 .sample-tag {
+            background: rgba(132, 204, 22, 0.15);
+            color: #84cc16;
+        }
+        
+        .theme-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .theme-info strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Choose Your Color Theme</h1>
+        <p>Preview different color schemes for your portfolio website</p>
+    </div>
+    
+    <div class="themes-grid">
+        <!-- Theme 1: Midnight Blue & Cyan (Current) -->
+        <div class="theme-card">
+            <div class="theme-preview theme-1">
+                <div>
+                    <div class="theme-name">Midnight Blue & Cyan</div>
+                    <div class="theme-description">✓ Currently Active • Modern, tech-forward, professional</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Tech professionals, developers, data scientists, SaaS products
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #0a192f;"></div>
+                        <div class="color-swatch" style="background: #64ffda;"></div>
+                        <div class="color-swatch" style="background: #8892b0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 2: Dark Slate & Emerald -->
+        <div class="theme-card">
+            <div class="theme-preview theme-2">
+                <div>
+                    <div class="theme-name">Dark Slate & Emerald</div>
+                    <div class="theme-description">Sophisticated, elegant, premium feel</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Consultants, strategists, finance professionals, premium brands
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #1a1a2e;"></div>
+                        <div class="color-swatch" style="background: #10b981;"></div>
+                        <div class="color-swatch" style="background: #a0aec0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 3: Charcoal & Coral -->
+        <div class="theme-card">
+            <div class="theme-preview theme-3">
+                <div>
+                    <div class="theme-name">Charcoal & Coral</div>
+                    <div class="theme-description">Bold, energetic, creative vibe</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Designers, creatives, marketers, entrepreneurs, startups
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #2d2d2d;"></div>
+                        <div class="color-swatch" style="background: #ff6b6b;"></div>
+                        <div class="color-swatch" style="background: #b8b8b8;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 4: Pure Dark & Purple -->
+        <div class="theme-card">
+            <div class="theme-preview theme-4">
+                <div>
+                    <div class="theme-name">Pure Dark & Purple</div>
+                    <div class="theme-description">Sleek, modern, AI/ML focused</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    AI/ML engineers, researchers, innovators, futuristic brands
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #0d0d0d;"></div>
+                        <div class="color-swatch" style="background: #a855f7;"></div>
+                        <div class="color-swatch" style="background: #9ca3af;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 5: Navy & Gold -->
+        <div class="theme-card">
+            <div class="theme-preview theme-5">
+                <div>
+                    <div class="theme-name">Navy & Gold</div>
+                    <div class="theme-description">Professional, trustworthy, classic</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Executives, consultants, financial services, established professionals
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #1e3a5f;"></div>
+                        <div class="color-swatch" style="background: #fbbf24;"></div>
+                        <div class="color-swatch" style="background: #cbd5e1;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 6: Dark Teal & Amber -->
+        <div class="theme-card">
+            <div class="theme-preview theme-6">
+                <div>
+                    <div class="theme-name">Dark Teal & Amber</div>
+                    <div class="theme-description">Unique, balanced, nature-inspired</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Sustainability, health tech, wellness, unique personal brands
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #134e4a;"></div>
+                        <div class="color-swatch" style="background: #fbbf24;"></div>
+                        <div class="color-swatch" style="background: #ccfbf1;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 7: Indigo & Pink -->
+        <div class="theme-card">
+            <div class="theme-preview theme-7">
+                <div>
+                    <div class="theme-name">Indigo & Pink</div>
+                    <div class="theme-description">Vibrant, creative, memorable</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Content creators, social media, entertainment, creative industries
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #312e81;"></div>
+                        <div class="color-swatch" style="background: #ec4899;"></div>
+                        <div class="color-swatch" style="background: #c7d2fe;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme 8: Forest Green & Lime -->
+        <div class="theme-card">
+            <div class="theme-preview theme-8">
+                <div>
+                    <div class="theme-name">Forest Green & Lime</div>
+                    <div class="theme-description">Fresh, energetic, eco-friendly</div>
+                    
+                    <div class="theme-elements">
+                        <div class="sample-heading">Arpit Jain</div>
+                        <div class="sample-text">
+                            I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs.
+                        </div>
+                        <div class="sample-button">See My Work</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">Product</span>
+                            <span class="sample-tag">Growth</span>
+                            <span class="sample-tag">AI/ML</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="theme-info">
+                    <strong>Best for:</strong>
+                    Green tech, sustainability, outdoor brands, health & fitness
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #14532d;"></div>
+                        <div class="color-swatch" style="background: #84cc16;"></div>
+                        <div class="color-swatch" style="background: #d1fae5;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h2 style="margin-bottom: 1rem; background: linear-gradient(135deg, #64ffda 0%, #00d9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">How to Apply a Theme</h2>
+        <p style="color: #8892b0; line-height: 1.8;">
+            Once you choose a theme, let me know which one you like (e.g., "I want Theme 2 - Dark Slate & Emerald") 
+            and I'll update your main index.html file with that color scheme. You can always switch themes later!
+        </p>
+    </div>
+</body>
+</html>
+

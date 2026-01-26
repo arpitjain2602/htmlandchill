@@ -3,18 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Blog</title>
-    <link rel="stylesheet" href="posts.html">
+    <title>Welcome to My Blog - Arpit Jain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: #ff6b6b;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            transform: translateX(-4px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .post-meta {
+            color: #b8b8b8;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        
+        .post-image {
+            max-width: 300px;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        .post-content {
+            font-size: 1.1rem;
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .tag {
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff6b6b;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body style="background:#1a1a1a;color:#fff;font-family:sans-serif;max-width:700px;margin:2rem auto;padding:2rem;">
-    <a href="posts.html" style="color:#fff;opacity:0.7;text-decoration:none;">&larr; Back to Posts</a>
-    <h1>Welcome to My Blog</h1>
-    <div style="opacity:0.7;font-size:0.95em;">October 22, 2024 &bull; by Arpit</div>
-    <img src="profile.jpeg" alt="Welcome to My Blog" style="max-width:200px;margin:1em 0;border-radius:8px;">
-    <p>This is the first post on my new blog! Here's what you can expect: coding tutorials, travel stories, and more. Stay tuned for regular updates and feel free to leave your comments!</p>
-    <div style="margin-top:1.5em;">
-        <span style="background:#333;padding:2px 8px;border-radius:12px;font-size:0.85em;margin-right:6px;">intro</span>
-        <span style="background:#333;padding:2px 8px;border-radius:12px;font-size:0.85em;margin-right:6px;">personal</span>
+<body>
+    <div class="container">
+        <a href="index.html#posts" class="back-link">← Back to Home</a>
+        
+        <h1>Welcome to My Blog</h1>
+        <div class="post-meta">October 22, 2024 • by Arpit</div>
+        
+        <img src="profile.jpeg" alt="Welcome to My Blog" class="post-image">
+        
+        <div class="post-content">
+            <p>This is the first post on my new blog! Here's what you can expect: coding tutorials, travel stories, and more. Stay tuned for regular updates and feel free to leave your comments!</p>
+        </div>
+        
+        <div class="post-tags">
+            <span class="tag">intro</span>
+            <span class="tag">personal</span>
+        </div>
     </div>
 </body>
-</html> 
+</html>

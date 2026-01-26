@@ -3,103 +3,967 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Landing Page</title>
+    <title>Arpit Jain - Product Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #1a1a1a;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #2d2d2d 100%);
             color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-
-        .container {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3vh; /* This positions the content 5% from the top of the viewport */
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.1);
+            transition: all 0.3s ease;
         }
-
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #333;
-            margin: 0 auto 2rem;
+        
+        nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0.8;
+        }
+        
+        nav a:hover {
+            opacity: 1;
+        }
+        
+        nav a.active {
+            opacity: 1;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid rgba(255, 107, 107, 0.3);
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center; /* Keeps the image centered */
-            border-radius: 50%;
-            transform: scale(1.2); /* Zoom in by 20% */
         }
-
+        
         h1 {
-            font-size: 2rem;
-            letter-spacing: 0.2em;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #d0d0d0;
             margin-bottom: 2rem;
-            font-weight: 400;
+            font-weight: 300;
         }
-
-        .links {
+        
+        .bio {
+            font-size: 1.1rem;
+            color: #b8b8b8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        
+        .cta-buttons {
             display: flex;
-            flex-direction: column;
             gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-
-        .link {
-            color: #ffffff;
+        
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
-            padding: 0.5rem;
-            transition: opacity 0.3s ease;
-            opacity: 0.8;
+            font-weight: 600;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: transparent;
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 107, 107, 0.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 107, 107, 0.05);
+            color: #ff6b6b;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: #ff6b6b;
+        }
+        
+        /* Story Section */
+        #story {
+            background: rgba(35, 35, 35, 0.4);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #b8b8b8;
+        }
+        
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .story-intro {
+            font-size: 1.2rem;
+            color: #c8c8c8;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+        
+        .timeline {
             position: relative;
+            padding-left: 3rem;
         }
 
-        .link::after {
+        .timeline::before {
             content: '';
             position: absolute;
-            width: 0;
-            height: 1px;
+            left: 0;
+            top: 0;
             bottom: 0;
-            left: 50%;
-            background-color: #ffffff;
+            width: 2px;
+            background: linear-gradient(180deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+            animation: fadeInLeft 0.6s ease;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+        }
+        
+        .timeline-year {
+            font-size: 0.9rem;
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-role {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e8e8e8;
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-company {
+            font-size: 1rem;
+            color: #b8b8b8;
+            margin-bottom: 0.75rem;
+        }
+        
+        .timeline-description {
+            color: #b8b8b8;
+            line-height: 1.7;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 107, 107, 0.05);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
-        .link:hover {
-            opacity: 1;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 107, 0.1);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
         }
-
-        .link:hover::after {
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b8b8b8;
+        }
+        
+        /* Posts Section */
+        #posts {
+            background: rgba(20, 20, 20, 0.6);
+        }
+        
+        .posts-container {
+            position: relative;
+            margin-top: 3rem;
+        }
+        
+        .posts-grid {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 2rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 107, 107, 0.3) rgba(35, 35, 35, 0.4);
+        }
+        
+        .posts-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .posts-grid::-webkit-scrollbar-track {
+            background: rgba(35, 35, 35, 0.4);
+            border-radius: 10px;
+        }
+        
+        .posts-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 107, 107, 0.3);
+            border-radius: 10px;
+        }
+        
+        .posts-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 107, 107, 0.5);
+        }
+        
+        .scroll-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .scroll-btn {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+        
+        .scroll-btn:hover {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: #ff6b6b;
+            transform: scale(1.1);
+        }
+        
+        .scroll-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .scroll-btn:disabled:hover {
+            transform: scale(1);
+        }
+        
+        .post-card {
+            background: rgba(35, 35, 35, 0.4);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            min-width: 350px;
+            max-width: 350px;
+            flex-shrink: 0;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.2);
+            border-color: rgba(255, 107, 107, 0.4);
+        }
+        
+        .post-image {
             width: 100%;
-            left: 0;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+        }
+        
+        .post-date {
+            font-size: 0.85rem;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #e8e8e8;
+        }
+        
+        .post-preview {
+            font-size: 0.95rem;
+            color: #b8b8b8;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff6b6b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            color: #b8b8b8;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: #ff6b6b;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline {
+                padding-left: 2rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+            
+            .timeline-item::before {
+                left: -2.5rem;
+            }
+            
+            .post-card {
+                min-width: 280px;
+                max-width: 280px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="avatar">
-            <img src="profile.jpeg" alt="Profile Picture">
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="logo">AJ</div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <ul id="nav-menu">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#story" class="nav-link">Story</a></li>
+                <li><a href="#posts" class="nav-link">Posts</a></li>
+                <li><a href="mailto:arpit2602@gmail.com" class="nav-link">Contact</a></li>
+            </ul>
         </div>
-        <h1>Arpit Jain</h1>
-        <div class="links">
-            <a href="story.html" class="link">See my story</a>
-            <a href="posts.html" class="link">Read my posts</a>
-            <a href="https://x.com/arpit2602" class="link">Follow my thoughts on Twitter</a>
-            <a href="mailto:arpit2602@gmail.com" class="link">Send me a message</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+    <div class="container">
+            <div class="hero-content">
+        <div class="avatar">
+                    <img src="profile.jpeg" alt="Arpit Jain">
+                </div>
+                <h1>Arpit Jain</h1>
+                <p class="tagline">Senior Product Manager | AI Enthusiast | Builder</p>
+                <p class="bio">
+                    I build products that people love. Currently leading Growth and Dynamic Pricing at PriceLabs, 
+                    where I've launched products generating $1.2M ARR and improved conversion by 3-4% through 
+                    data-driven experimentation. I'm passionate about the intersection of AI and product management.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#story" class="btn btn-primary">See My Story</a>
+                    <a href="#posts" class="btn btn-secondary">Read My Posts</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <svg fill="white" viewBox="0 0 24 24">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Story</h2>
+                <p class="section-subtitle">From electrical engineering to building products people love.</p>
+            </div>
             
+            <div class="story-content">
+                <p class="story-intro">
+                    My journey with technology started back in 2016, when I trained my first deep learning model - AlexNet on CCTV images. 
+                    I was an electrical engineering student at IIT Delhi, but I was fascinated by what AI could do. 
+                    That curiosity turned into a passion that has shaped my entire career.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">$1.2M</span>
+                        <span class="stat-label">ARR from a 0-to-1 product launch</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">A/B experiments run</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3-4%</span>
+                        <span class="stat-label">Conversion rate uplift</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">30k+</span>
+                        <span class="stat-label">Users migrated to AI algorithm</span>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2017-2018</div>
+                        <div class="timeline-role">Associate Consultant</div>
+                        <div class="timeline-company">Ernst & Young</div>
+                        <p class="timeline-description">
+                            Started my career in management consulting (quite unconventional), analyzing dealer networks and supply chain operations. 
+                            Identified a 10% sales loss opportunity across 1400+ dealers for a $500 Mn CPG client and presented strategic recommendations to CEO.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018-2021</div>
+                        <div class="timeline-role">Product Manager - AI/ML</div>
+                        <div class="timeline-company">Stryker</div>
+                        <p class="timeline-description">
+                            Made the leap into solving problems for software products at a Med-tech company. Built AI-powered workflow features that reduced 
+                            medical appraisal time by 20% and improved sales forecasting accuracy by 5%. This is where I discovered 
+                            my love for AI-powered software products.
+                            During this time, I also did part-time research with Prof. Aaditeshwar Seth at IIT Delhi, building Deep Learning models on satelite images. This work led to an ACM Publication.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-role">Data Scientist</div>
+                        <div class="timeline-company">PriceLabs (First Chapter)</div>
+                        <p class="timeline-description">
+                            Joined PriceLabs as a Data Scientist to really understand what it means to "ship code". Worked on next-gen dynamic pricing algorithms. Made several improvements to the algorithm, leading to a next-gen algorithm launch 2 years later.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021-2022</div>
+                        <div class="timeline-role">MS in Business Analytics</div>
+                        <div class="timeline-company">UCLA Anderson School of Management</div>
+                        <p class="timeline-description">
+                            Pursued my Masters in Business Analytics at UCLA Anderson. During this time, I interned at 
+                            Twitter (now X) as a Product Analytics Intern, analyzing social products like 
+                            Spaces and Communities. I also worked as a Product Manager at TheLoops, an early-stage 
+                            B2B SaaS startup, where I shipped analytics features from discovery to launch.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023-Present</div>
+                        <div class="timeline-role">Product Manager → Senior Product Manager</div>
+                        <div class="timeline-company">PriceLabs (Return & Growth)</div>
+                        <p class="timeline-description">
+                            Returned to PriceLabs as a Product Manager and was promoted to Senior PM.
+                            Leading Growth and Dynamic Pricing, managing a team of 2 (APM and Product Analyst). 
+                            Launched Revenue Estimator Pro generating $1.2M ARR and improved trial-to-paid conversion by 3-4% through 30+ A/B tests.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section id="posts">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Posts</h2>
+                <p class="section-subtitle">Thoughts on product, growth, and AI</p>
+            </div>
+            
+            <div class="posts-container">
+                <div class="posts-grid" id="posts-grid">
+                    <!-- Posts will be loaded here by JavaScript -->
+                </div>
+                <div class="scroll-buttons">
+                    <button class="scroll-btn" id="scroll-left" onclick="scrollPosts('left')">‹</button>
+                    <button class="scroll-btn" id="scroll-right" onclick="scrollPosts('right')">›</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/jainarpit26/" class="social-link" target="_blank" title="LinkedIn">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+            </a>
+            <a href="https://twitter.com/arpitjain2602" class="social-link" target="_blank" title="Twitter">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                </svg>
+            </a>
+            <a href="mailto:arpit2602@gmail.com" class="social-link" title="Email">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </a>
+        </div>
+        <p class="copyright">© 2026 Arpit Jain. Built with passion.</p>
+    </footer>
+
+    <script>
+        // Load posts from JSON or use fallback data
+        const fallbackPosts = [
+            {
+                "title": "Welcome to My Blog",
+                "date": "2024-10-22",
+                "tags": ["intro", "personal"],
+                "author": "Arpit",
+                "image": "profile.jpeg",
+                "file": "post1.html",
+                "preview": "This is the first post on my new blog! Here's what you can expect..."
+            },
+            {
+                "title": "Learning JavaScript",
+                "date": "2024-10-25",
+                "tags": ["javascript", "coding"],
+                "author": "Arpit",
+                "image": "profile.jpeg",
+                "file": "post2.html",
+                "preview": "JavaScript is a versatile language. In this post, I'll share some tips for beginners."
+            },
+            {
+                "title": "Travel Diaries: Japan",
+                "date": "2024-11-01",
+                "tags": ["travel", "japan"],
+                "author": "Arpit",
+                "image": "profile.jpeg",
+                "file": "post3.html",
+                "preview": "My experiences exploring the beautiful country of Japan, from Tokyo to Kyoto."
+            }
+        ];
+
+        function loadPosts(posts) {
+            const postsGrid = document.getElementById('posts-grid');
+            postsGrid.innerHTML = ''; // Clear existing content
+            
+            posts.forEach(post => {
+                const postCard = document.createElement('a');
+                postCard.href = post.file;
+                postCard.target = '_blank';
+                postCard.rel = 'noopener noreferrer';
+                postCard.className = 'post-card';
+                postCard.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}" class="post-image">
+                    <div class="post-content">
+                        <div class="post-date">${post.date} • by ${post.author}</div>
+                        <h3 class="post-title">${post.title}</h3>
+                        <p class="post-preview">${post.preview}</p>
+                        <div class="post-tags">
+                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
         </div>
     </div>
+                `;
+                postsGrid.appendChild(postCard);
+            });
+            updateScrollButtons();
+        }
+
+        // Try to load from JSON, fallback to hardcoded data
+        fetch('posts.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch');
+                return response.json();
+            })
+            .then(posts => {
+                loadPosts(posts);
+            })
+            .catch(err => {
+                console.log('Loading posts from fallback data');
+                loadPosts(fallbackPosts);
+            });
+
+        // Scroll posts horizontally
+        function scrollPosts(direction) {
+            const postsGrid = document.getElementById('posts-grid');
+            const scrollAmount = 370; // card width + gap
+            
+            if (direction === 'left') {
+                postsGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                postsGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+            
+            setTimeout(updateScrollButtons, 300);
+        }
+
+        // Update scroll button states
+        function updateScrollButtons() {
+            const postsGrid = document.getElementById('posts-grid');
+            const scrollLeft = postsGrid.scrollLeft;
+            const maxScroll = postsGrid.scrollWidth - postsGrid.clientWidth;
+            
+            const leftBtn = document.getElementById('scroll-left');
+            const rightBtn = document.getElementById('scroll-right');
+            
+            leftBtn.disabled = scrollLeft <= 0;
+            rightBtn.disabled = scrollLeft >= maxScroll - 1;
+        }
+
+        // Update scroll buttons on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const postsGrid = document.getElementById('posts-grid');
+            postsGrid.addEventListener('scroll', updateScrollButtons);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.getElementById('nav-menu');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
