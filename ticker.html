@@ -224,6 +224,8 @@
     .f-body li { padding-left: 18px; position: relative; }
     .f-body li::before { content: '▲'; position: absolute; left: 0; top: 4px; font-size: 9px; color: var(--up); }
     .filing.is-dip .f-body li::before { content: '▼'; color: var(--down); }
+    .f-body a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-soft); transition: color .2s, text-decoration-color .2s; }
+    .f-body a:hover { color: var(--up); text-decoration-color: var(--up); }
 
     /* ---------- Bull case / risks ---------- */
     .principles { display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -417,10 +419,9 @@
           <div class="f-body">
             <p class="f-head">Came back to the company that taught me to ship. Now I run Growth and Dynamic Pricing.</p>
             <ul>
-              <li>Joined as a Product Manager and was promoted to Senior PM. I lead a team of two, an APM and a Product Analyst.</li>
-              <li>Took Revenue Estimator Pro from a blank page to a paid product (0 → 1).</li>
-              <li>Run an ongoing experimentation program on the trial-to-paid funnel. Every change ships as a test.</li>
-              <li>Led the customer migration to the next-gen pricing algorithm, the same one I helped build as a data scientist. Full circle.</li>
+              <li>Lead product across <strong>Growth and Dynamic Pricing</strong>, owning both core algorithmic intelligence and user-facing pricing controls.</li>
+              <li>Led the 0-to-1 launch of <a href="https://hello.pricelabs.co/revenue-estimator-pro/" target="_blank" rel="noopener noreferrer">Revenue Estimator Pro ↗</a> from a blank page to a paid product.</li>
+              <li>Established continuous growth experimentation loops across onboarding and trial activation to drive sustainable paid conversion.</li>
             </ul>
           </div>
         </details>

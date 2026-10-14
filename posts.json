@@ -1,29 +1,26 @@
 [
   {
-    "title": "Welcome to My Blog",
-    "date": "2024-10-22",
-    "tags": ["intro", "personal"],
+    "title": "Finding Signal in Product Noise",
+    "date": "2026-03-15",
+    "tags": ["strategy", "analytics", "growth"],
     "author": "Arpit",
-    "image": "profile.jpeg",
     "file": "post1.html",
-    "preview": "This is the first post on my new blog! Here's what you can expect..."
+    "preview": "In growth products, data volume often hides the truth. How to separate actionable signal from distracting metric noise."
   },
   {
-    "title": "Learning JavaScript",
-    "date": "2024-10-25",
-    "tags": ["javascript", "coding"],
+    "title": "Why Pricing Algorithms Are Human Psychology Problems",
+    "date": "2026-02-28",
+    "tags": ["pricing", "algorithms", "psychology"],
     "author": "Arpit",
-    "image": "profile.jpeg",
     "file": "post2.html",
-    "preview": "JavaScript is a versatile language. In this post, I'll share some tips for beginners."
+    "preview": "Why dynamic pricing math fails when it ignores trust, anchoring, and control. Lessons from building pricing models."
   },
   {
-    "title": "Travel Diaries: Japan",
-    "date": "2024-11-01",
-    "tags": ["travel", "japan"],
+    "title": "The Art of Scrappy 0-to-1 PM Execution",
+    "date": "2026-01-20",
+    "tags": ["0-to-1", "execution", "prototyping"],
     "author": "Arpit",
-    "image": "profile.jpeg",
     "file": "post3.html",
-    "preview": "My experiences exploring the beautiful country of Japan, from Tokyo to Kyoto."
+    "preview": "Moving from zero to one with momentum. Why working prototypes and high velocity beat polish and slide decks."
   }
-] 
+]

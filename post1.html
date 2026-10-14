@@ -3,119 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Blog - Arpit Jain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Finding Signal in Product Noise — Arpit Jain</title>
+    <meta name="description" content="In early-stage and growth products, data volume often hides the truth. How to separate actionable signal from distracting metric noise.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-base: #08090c;
+            --bg-card: #101217;
+            --bg-card-hover: #16181f;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.18);
+
+            --text-white: #ffffff;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            --accent-green: #22c55e;
+            --accent-yellow: #edff4f;
+            --accent-blue: #2563eb;
+            --accent-mint: #3ddc97;
+
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-            color: #ffffff;
-            line-height: 1.7;
+            background-color: var(--bg-base);
             min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 3rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
-        
+
+        /* Container */
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 620px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 0 1.25rem;
+            box-sizing: border-box;
         }
-        
-        .back-link {
-            display: inline-block;
-            color: #ff6b6b;
-            text-decoration: none;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            opacity: 0.9;
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 1rem;
+            }
         }
-        
-        .back-link:hover {
-            opacity: 1;
-            transform: translateX(-4px);
+
+        /* Clean Top Navigation Line */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 9, 12, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.1rem 0;
         }
-        
-        h1 {
-            font-size: 2.5rem;
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-name {
+            font-size: 1.15rem;
             font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .status-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            flex-shrink: 0;
+        }
+
+        /* Back Link */
+        .back-nav {
+            padding-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-link {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-white);
+            transform: translateX(-3px);
+        }
+
+        /* Article Header */
+        .article-header {
+            margin-bottom: 2.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1.75rem;
+        }
+
+        .article-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .article-title {
+            font-size: clamp(1.8rem, 5.5vw, 2.35rem);
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            color: var(--text-white);
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
         }
-        
-        .post-meta {
-            color: #b8b8b8;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
+
+        .article-meta {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        
-        .post-image {
-            max-width: 300px;
-            margin: 2rem 0;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 107, 107, 0.2);
-        }
-        
-        .post-content {
-            font-size: 1.1rem;
-            color: #c8c8c8;
+
+        /* Article Content */
+        .article-content {
+            font-size: 1.05rem;
+            color: #cbd5e1;
             line-height: 1.8;
-            margin-bottom: 2rem;
         }
-        
+
+        .article-content p {
+            margin-bottom: 1.6rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -0.02em;
+            margin: 2.25rem 0 0.85rem;
+        }
+
+        .article-content blockquote {
+            border-left: 2px solid var(--accent-green);
+            background: rgba(34, 197, 94, 0.05);
+            padding: 1rem 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.75rem 0;
+            color: #e2e8f0;
+            font-style: italic;
+        }
+
+        .article-content ul, .article-content ol {
+            padding-left: 1.3rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content strong {
+            color: var(--text-white);
+        }
+
+        /* Tags */
         .post-tags {
+            display: flex;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .tag-chip {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 9999px;
+        }
+
+        /* Next / Prev Navigation */
+        .post-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+
+        .nav-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .nav-card-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .nav-card-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-white);
+            line-height: 1.35;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            width: 100%;
+        }
+
+        .social-links {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            justify-content: center;
+            max-width: 100%;
         }
-        
-        .tag {
-            background: rgba(255, 107, 107, 0.15);
-            color: #ff6b6b;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+
+        .social-pill {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 2rem 1.5rem;
-            }
+
+        .social-pill:hover {
+            color: var(--text-white);
+            border-color: var(--border-hover);
+        }
+
+        .footer-note {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-dim);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html#posts" class="back-link">← Back to Home</a>
-        
-        <h1>Welcome to My Blog</h1>
-        <div class="post-meta">October 22, 2024 • by Arpit</div>
-        
-        <img src="profile.jpeg" alt="Welcome to My Blog" class="post-image">
-        
-        <div class="post-content">
-            <p>This is the first post on my new blog! Here's what you can expect: coding tutorials, travel stories, and more. Stay tuned for regular updates and feel free to leave your comments!</p>
+
+    <!-- Sticky Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="brand-name">arpit.jain</a>
+            <div class="status-line">
+                <span class="status-dot"></span>
+                <span>shipping @ PriceLabs</span>
+            </div>
         </div>
-        
+    </header>
+
+    <main class="container">
+
+        <!-- Back Link -->
+        <nav class="back-nav">
+            <a href="index.html#writing" class="back-link">← Back to Writing</a>
+        </nav>
+
+        <!-- Article Header -->
+        <header class="article-header">
+            <span class="article-tag">Essay</span>
+            <h1 class="article-title">Finding Signal in Product Noise</h1>
+            <div class="article-meta">
+                <span>By Arpit Jain</span>
+                <span>•</span>
+                <span>4 min read</span>
+                <span>•</span>
+                <span>Product Strategy</span>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <article class="article-content">
+            <p>
+                In growth and product management, lack of data is almost never the issue anymore. In fact, most teams suffer from the exact opposite condition: <strong>hyper-instrumented noise</strong>.
+            </p>
+            <p>
+                When dashboards are overloaded with dozens of conversion funnels, heatmaps, and event triggers, teams can easily confuse movement with progress. A cohort conversion rate bumps 1.2% in one segment while dipping 0.8% in another, and suddenly three sprints are lost trying to dissect a phantom fluctuation.
+            </p>
+
+            <blockquote>
+                "Measurement without a mechanistic hypothesis isn't product science—it's just expensive astrology with charts."
+            </blockquote>
+
+            <h2>1. The Trap of Proxy Metrics</h2>
+            <p>
+                A common trap is optimizing for proxies that drift away from true customer utility. In marketplace and dynamic pricing systems, for instance, high session engagement or frequency of parameter tweaks might look great on an activity dashboard. But if customers are tweaking parameters constantly, it often means they don't trust the automated pricing algorithm—not that they love using the tool.
+            </p>
+            <p>
+                Signal is found at the intersection of <em>behavioral commitment</em> and <em>economic outcome</em>:
+            </p>
+            <ul>
+                <li><strong>Noise:</strong> Page views, feature click counts, and session duration.</li>
+                <li><strong>Signal:</strong> User willingness to accept algorithmic suggestions, recurring revenue retention, and time-to-value completion.</li>
+            </ul>
+
+            <h2>2. Hypotheses Before Dashboards</h2>
+            <p>
+                Before launching any A/B experiment or feature branch, we force a simple discipline: write down the causal mechanism in plain English.
+            </p>
+            <p>
+                If we change the way listing price elasticity is displayed on the calendar view, <em>why</em> will a customer change their behavior? What psychological barrier or friction is being eliminated? If the answer relies on "users will explore the data more," it's almost certainly noise. If the answer is "users currently lack conviction that neighboring listings are booked at this rate, so surfacing neighborhood comps removes pricing hesitation," you have a testable signal.
+            </p>
+
+            <h2>3. Protecting Momentum</h2>
+            <p>
+                Finding signal requires saying no to the temptation to explain every outlier. When you ruthlessly narrow your focus to the single causal metric that drives durable value, product teams move faster, build with conviction, and ship software that actually moves the needle.
+            </p>
+        </article>
+
+        <!-- Tags -->
         <div class="post-tags">
-            <span class="tag">intro</span>
-            <span class="tag">personal</span>
+            <span class="tag-chip">Product Strategy</span>
+            <span class="tag-chip">Analytics</span>
+            <span class="tag-chip">Experimentation</span>
+            <span class="tag-chip">Growth</span>
         </div>
-    </div>
+
+        <!-- Next / Prev Links -->
+        <nav class="post-pagination">
+            <a href="post2.html" class="nav-card" style="margin-left: auto; text-align: right;">
+                <span class="nav-card-label">Next Essay →</span>
+                <span class="nav-card-title">Why Pricing Algorithms Are Human Psychology Problems</span>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/jainarpit26/" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn</a>
+                <a href="https://x.com/arpit2602" target="_blank" rel="noopener noreferrer" class="social-pill">X</a>
+                <a href="mailto:arpit2602@gmail.com" class="social-pill">Email</a>
+                <a href="posts.html" class="social-pill">Blog</a>
+            </div>
+            <p class="footer-note">© 2026 Arpit Jain · arpit.jain</p>
+        </footer>
+
+    </main>
+
 </body>
 </html>

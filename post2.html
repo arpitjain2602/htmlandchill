@@ -3,119 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning JavaScript - Arpit Jain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Why Pricing Algorithms Are Human Psychology Problems — Arpit Jain</title>
+    <meta name="description" content="Why dynamic pricing math fails when it ignores trust, anchoring, and control. Lessons from building pricing models.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-base: #08090c;
+            --bg-card: #101217;
+            --bg-card-hover: #16181f;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.18);
+
+            --text-white: #ffffff;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            --accent-green: #22c55e;
+            --accent-yellow: #edff4f;
+            --accent-blue: #2563eb;
+            --accent-mint: #3ddc97;
+
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-            color: #ffffff;
-            line-height: 1.7;
+            background-color: var(--bg-base);
             min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 3rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
-        
+
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 620px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 0 1.25rem;
+            box-sizing: border-box;
         }
-        
-        .back-link {
-            display: inline-block;
-            color: #ff6b6b;
-            text-decoration: none;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            opacity: 0.9;
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 1rem;
+            }
         }
-        
-        .back-link:hover {
-            opacity: 1;
-            transform: translateX(-4px);
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 9, 12, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.1rem 0;
         }
-        
-        h1 {
-            font-size: 2.5rem;
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-name {
+            font-size: 1.15rem;
             font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .status-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            flex-shrink: 0;
+        }
+
+        .back-nav {
+            padding-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-link {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-white);
+            transform: translateX(-3px);
+        }
+
+        .article-header {
+            margin-bottom: 2.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1.75rem;
+        }
+
+        .article-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .article-title {
+            font-size: clamp(1.8rem, 5.5vw, 2.35rem);
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            color: var(--text-white);
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
         }
-        
-        .post-meta {
-            color: #b8b8b8;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
+
+        .article-meta {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        
-        .post-image {
-            max-width: 300px;
-            margin: 2rem 0;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 107, 107, 0.2);
-        }
-        
-        .post-content {
-            font-size: 1.1rem;
-            color: #c8c8c8;
+
+        .article-content {
+            font-size: 1.05rem;
+            color: #cbd5e1;
             line-height: 1.8;
-            margin-bottom: 2rem;
         }
-        
+
+        .article-content p {
+            margin-bottom: 1.6rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -0.02em;
+            margin: 2.25rem 0 0.85rem;
+        }
+
+        .article-content blockquote {
+            border-left: 2px solid var(--accent-blue);
+            background: rgba(37, 99, 235, 0.05);
+            padding: 1rem 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.75rem 0;
+            color: #e2e8f0;
+            font-style: italic;
+        }
+
+        .article-content ul, .article-content ol {
+            padding-left: 1.3rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content strong {
+            color: var(--text-white);
+        }
+
         .post-tags {
+            display: flex;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .tag-chip {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 9999px;
+        }
+
+        .post-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+
+        .nav-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .nav-card-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .nav-card-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-white);
+            line-height: 1.35;
+        }
+
+        .footer {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            width: 100%;
+        }
+
+        .social-links {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            justify-content: center;
+            max-width: 100%;
         }
-        
-        .tag {
-            background: rgba(255, 107, 107, 0.15);
-            color: #ff6b6b;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+
+        .social-pill {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 2rem 1.5rem;
-            }
+
+        .social-pill:hover {
+            color: var(--text-white);
+            border-color: var(--border-hover);
+        }
+
+        .footer-note {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-dim);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html#posts" class="back-link">← Back to Home</a>
-        
-        <h1>Learning JavaScript</h1>
-        <div class="post-meta">October 25, 2024 • by Arpit</div>
-        
-        <img src="profile.jpeg" alt="Learning JavaScript" class="post-image">
-        
-        <div class="post-content">
-            <p>JavaScript is a versatile language. In this post, I'll share some tips for beginners, including resources, best practices, and common pitfalls to avoid. Whether you're new to coding or looking to brush up your skills, this post is for you!</p>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="brand-name">arpit.jain</a>
+            <div class="status-line">
+                <span class="status-dot"></span>
+                <span>shipping @ PriceLabs</span>
+            </div>
         </div>
-        
+    </header>
+
+    <main class="container">
+
+        <nav class="back-nav">
+            <a href="index.html#writing" class="back-link">← Back to Writing</a>
+        </nav>
+
+        <header class="article-header">
+            <span class="article-tag">Analysis</span>
+            <h1 class="article-title">Why Pricing Algorithms Are Human Psychology Problems</h1>
+            <div class="article-meta">
+                <span>By Arpit Jain</span>
+                <span>•</span>
+                <span>5 min read</span>
+                <span>•</span>
+                <span>Dynamic Pricing &amp; Behavioral Econ</span>
+            </div>
+        </header>
+
+        <article class="article-content">
+            <p>
+                When engineers and quantitative economists design dynamic pricing engines, the immediate instinct is to frame it as a pure optimization problem: maximize expected revenue subject to demand elasticity curves, booking lead times, and seasonal compression.
+            </p>
+            <p>
+                The math is elegant. The simulations look bulletproof. And then you launch the model into production, and hosts immediately override the prices or turn the automation off.
+            </p>
+
+            <blockquote>
+                "An algorithm that is mathematically optimal on paper but overridden 70% of the time in production has an effective efficacy of zero."
+            </blockquote>
+
+            <h2>1. Loss Aversion Trumps Expected Value</h2>
+            <p>
+                Standard expected value theory assumes symmetric sensitivity: gaining $50 feels as good as losing $50 hurts. In real estate, hospitality, and creator economies, this assumption completely falls apart.
+            </p>
+            <p>
+                If a pricing algorithm drops a weekend rate by $30 to guarantee a 92% occupancy rate, the host doesn't celebrate the increased expected payout. They feel the visceral sting of having "sold out too cheaply." Conversely, if the algorithm prices high and the night stays unbooked, they experience regret. Designing algorithms that humans actually adopt requires <strong>guardrails that respect cognitive loss aversion</strong>.
+            </p>
+
+            <h2>2. The Agency Paradox</h2>
+            <p>
+                Users do not want full automation if it feels like abdication of control. They want <em>amplified agency</em>.
+            </p>
+            <p>
+                When we launched major updates to dynamic pricing systems, adoption wasn't driven by explaining neural network weights. It was driven by:
+            </p>
+            <ul>
+                <li><strong>Clear explainability:</strong> "Why did my price change today? Because high-demand event compression increased nearby bookings by 24%."</li>
+                <li><strong>Customization handles:</strong> Allowing users to set their personal risk tolerance (e.g., occupancy-first vs. rate-first).</li>
+                <li><strong>Safe overrides:</strong> Never punishing users for stepping in, but clearly projecting the opportunity cost of doing so.</li>
+            </ul>
+
+            <h2>3. The Lesson for Product Builders</h2>
+            <p>
+                The hardest part of AI and algorithmic products is almost never the loss function in training. It is the interface of trust between human intuition and algorithmic recommendation.
+            </p>
+        </article>
+
         <div class="post-tags">
-            <span class="tag">javascript</span>
-            <span class="tag">coding</span>
+            <span class="tag-chip">Dynamic Pricing</span>
+            <span class="tag-chip">Behavioral Economics</span>
+            <span class="tag-chip">Machine Learning</span>
+            <span class="tag-chip">PriceLabs</span>
         </div>
-    </div>
+
+        <nav class="post-pagination">
+            <a href="post1.html" class="nav-card">
+                <span class="nav-card-label">← Previous</span>
+                <span class="nav-card-title">Finding Signal in Product Noise</span>
+            </a>
+            <a href="post3.html" class="nav-card" style="text-align: right;">
+                <span class="nav-card-label">Next Essay →</span>
+                <span class="nav-card-title">The Art of Scrappy 0-to-1 PM Execution</span>
+            </a>
+        </nav>
+
+        <footer class="footer">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/jainarpit26/" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn</a>
+                <a href="https://x.com/arpit2602" target="_blank" rel="noopener noreferrer" class="social-pill">X</a>
+                <a href="mailto:arpit2602@gmail.com" class="social-pill">Email</a>
+                <a href="posts.html" class="social-pill">Blog</a>
+            </div>
+            <p class="footer-note">© 2026 Arpit Jain · arpit.jain</p>
+        </footer>
+
+    </main>
+
 </body>
 </html>
