@@ -349,6 +349,84 @@
             line-height: 1.45;
         }
 
+        .card-oura {
+            background: radial-gradient(120% 90% at 100% 0%, rgba(61, 220, 151, 0.12) 0%, rgba(61, 220, 151, 0) 55%), linear-gradient(180deg, #10151a 0%, #0c0f13 100%);
+        }
+
+        .oura-ring {
+            width: 44px;
+            height: 44px;
+            margin-bottom: 1rem;
+        }
+
+        .oura-ring .ring-track {
+            stroke: rgba(255, 255, 255, 0.08);
+        }
+
+        .oura-ring .ring-fill {
+            stroke: var(--accent-mint);
+            transition: stroke-dashoffset 0.6s ease;
+        }
+
+        .card-oura:hover .ring-fill {
+            stroke-dashoffset: 6;
+        }
+
+        .oura-ring text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            fill: var(--text-white);
+        }
+
+        .card-plant {
+            background: linear-gradient(180deg, #11160f 0%, #0c100b 100%);
+        }
+
+        .plant-icon-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .plant-icon-box svg {
+            width: 15px;
+            height: 15px;
+            fill: none;
+            stroke: #04140a;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            color: var(--text-dim);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 2px 8px;
+            margin-top: 0.6rem;
+        }
+
+        .full-card-meta {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            margin-top: 0.15rem;
+        }
+
+        .stars {
+            color: var(--accent-yellow);
+            letter-spacing: 1px;
+        }
+
         /* Full Width Project Card ($ARPIT Ticker) - Clean typography, NO emojis */
         .full-card {
             background: var(--bg-card);
@@ -732,9 +810,50 @@
                     </div>
                 </a>
 
+                <!-- Card 3: Oura Free -->
+                <a href="https://ourafree.onrender.com/" target="_blank" rel="noopener noreferrer" class="project-card card-oura">
+                    <div>
+                        <svg class="oura-ring" viewBox="0 0 44 44" aria-hidden="true">
+                            <circle class="ring-track" cx="22" cy="22" r="18" fill="none" stroke-width="4"/>
+                            <circle class="ring-fill" cx="22" cy="22" r="18" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="16" transform="rotate(-90 22 22)"/>
+                            <text x="22" y="26" text-anchor="middle">86</text>
+                        </svg>
+                        <div class="card-offer-title">Oura Free</div>
+                    </div>
+                    <div class="card-offer-desc">
+                        Your Oura data as a full dashboard. Nothing leaves your browser.
+                    </div>
+                </a>
+
+                <!-- Card 4: Plant Care -->
+                <a href="https://plant-management-pearl.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card card-plant">
+                    <div>
+                        <div class="plant-icon-box">
+                            <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                        </div>
+                        <div class="card-offer-title">Plant Care</div>
+                    </div>
+                    <div>
+                        <div class="card-offer-desc">
+                            Watering reminders that know which plants are the drama queens.
+                        </div>
+                        <span class="card-tag">invite-only</span>
+                    </div>
+                </a>
+
             </div>
 
-            <!-- Card 3: What if I was a ticker? ($ARPIT) - Clean typographic card, NO emojis -->
+            <!-- Card 5: Review Intelligence (restaurant-review) -->
+            <a href="https://restaurant-review-sigma.vercel.app" target="_blank" rel="noopener noreferrer" class="full-card">
+                <div class="full-card-left">
+                    <div class="full-card-title">Review Intelligence</div>
+                    <div class="full-card-desc">Turns thousands of Google reviews into a pre-shift brief for restaurant owners, with counter-plays against nearby competitors</div>
+                    <div class="full-card-meta"><span class="stars">★★★★☆</span> &nbsp;owner login · private beta</div>
+                </div>
+                <div class="full-card-arrow">Open →</div>
+            </a>
+
+            <!-- Card 6: What if I was a ticker? ($ARPIT) - Clean typographic card, NO emojis -->
             <a href="ticker.html" class="full-card">
                 <div class="full-card-left">
                     <div class="full-card-title">What if I was a ticker? ($ARPIT)</div>
